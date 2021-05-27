@@ -30,7 +30,7 @@ class GrpcServer {
   /**
    *Creates an instance of GrpcServer.
    * @param {Object} params
-   * @param {string} params.name gRPC server name. Default: gRPC server
+   * @param {string} params.name gRPC server name.
    * @param {string} params.host gRPC serving host. default: 0.0.0.0:3000
    * @param {ProtoConfig} params.proto proto loader configurations
    * @param {Object} params.controllers gRPC service implementations
@@ -40,7 +40,7 @@ class GrpcServer {
   constructor(params) {
     const { name, host, proto, controllers, healthcheckStatus } = params;
     const { packageName, serviceName, protoPath } = proto;
-    this.#name = name || 'gRPC server';
+    this.#name = name || '';
     this.#host = host || '0.0.0.0:3000';
 
     const packageDefinition = protoLoader.loadSync(

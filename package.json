@@ -1,11 +1,12 @@
 {
   "name": "ugrpc",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "gRPC for microservice communications",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "types": "find src -name '*.d.ts' -delete && tsc"
+    "types": "find src -name '*.d.ts' -delete && tsc",
+    "clean-dts": "find src -name '*.d.ts' -delete"
   },
   "repository": {
     "type": "git",

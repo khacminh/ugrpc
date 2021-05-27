@@ -23,6 +23,7 @@ class Healthcheck {
     this.service = service;
     this.#status = initStatus;
     this.#statusMap = {
+      '': _.every(this.#status) ? servingStatus.SERVING : servingStatus.NOT_SERVING,
       [name]: _.every(this.#status) ? servingStatus.SERVING : servingStatus.NOT_SERVING,
     };
     this.#serviceName = name;
@@ -41,6 +42,7 @@ class Healthcheck {
     const isHealthy = _.every(this.#status);
     if (!isHealthy) {
       this.controllers.setStatus(this.#serviceName, servingStatus.NOT_SERVING);
+      this.controllers.setStatus('', servingStatus.NOT_SERVING);
     }
   }
 }
