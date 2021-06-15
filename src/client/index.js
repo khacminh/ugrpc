@@ -32,7 +32,7 @@ function createGrpcClient(params) {
       keepCase: false,
       longs: String,
       enums: String,
-      defaults: true,
+      defaults: false,
       oneofs: true,
     },
   );

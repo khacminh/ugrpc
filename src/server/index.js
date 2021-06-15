@@ -49,7 +49,7 @@ class GrpcServer {
         keepCase: false,
         longs: String,
         enums: String,
-        defaults: true,
+        defaults: false,
         oneofs: true,
       },
     );
