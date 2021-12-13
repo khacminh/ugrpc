@@ -51,6 +51,7 @@ function createGrpcClient(params) {
       enums: String,
       defaults: false,
       oneofs: true,
+      arrays: true,
       ...protoLoaderOptions,
     },
   );
