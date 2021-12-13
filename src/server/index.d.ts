@@ -8,6 +8,20 @@ declare class GrpcServer {
      * @property {string} params.proto.protoPath *.proto absolute file path
      */
     /**
+     * proto-loader options. Read more at: https://www.npmjs.com/package/@grpc/proto-loader
+     * @typedef {Object} protoLoaderOptions
+     * @property {Boolean} [params.protoLoaderOptions.keepCase=false] - `true` or `false`
+     * @property {Function} [params.protoLoaderOptions.longs=String] `String` or `Number`
+     * @property {Function} [params.protoLoaderOptions.enums=String] `String`
+     * @property {Function} [params.protoLoaderOptions.bytes=Buffer] `Array` or `String`
+     * @property {Boolean} [params.protoLoaderOptions.defaults=false] `true` or `false`
+     * @property {Boolean} [params.protoLoaderOptions.arrays=true] `true` or `false`
+     * @property {Boolean} [params.protoLoaderOptions.objects=false] `true` or `false`
+     * @property {Boolean} [params.protoLoaderOptions.oneofs=true] `true` or `false`
+     * @property {Boolean} [params.protoLoaderOptions.json=false] `true` or `false`
+     * @property {[String]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
+     */
+    /**
      *Creates an instance of GrpcServer.
      * @param {Object} params
      * @param {string} params.name gRPC server name.
@@ -15,6 +29,8 @@ declare class GrpcServer {
      * @param {ProtoConfig} params.proto proto loader configurations
      * @param {Object} params.controllers gRPC service implementations
      * @param {Object} params.healthcheckStatus service health check status. Leave it undefined for always SERVING
+     * @param {protoLoaderOptions} params.protoLoaderOptions protoLoader Options.
+     * Read more at: https://www.npmjs.com/package/@grpc/proto-loader
      * @memberof GrpcServer
      */
     constructor(params: {
@@ -23,6 +39,7 @@ declare class GrpcServer {
         proto: ProtoConfig;
         controllers: any;
         healthcheckStatus: any;
+        protoLoaderOptions: protoLoaderOptions;
     });
     server: grpc.Server;
     /**
@@ -50,7 +67,7 @@ declare class GrpcServer {
     #private;
 }
 declare namespace GrpcServer {
-    export { ProtoConfig };
+    export { ProtoConfig, protoLoaderOptions };
 }
 import grpc = require("@grpc/grpc-js");
 /**
@@ -69,4 +86,49 @@ type ProtoConfig = {
      * *.proto absolute file path
      */
     protoPath: string;
+};
+/**
+ * proto-loader options. Read more at: https://www.npmjs.com/package/@grpc/proto-loader
+ */
+type protoLoaderOptions = {
+    /**
+     * - `true` or `false`
+     */
+    keepCase?: boolean;
+    /**
+     * `String` or `Number`
+     */
+    longs?: Function;
+    /**
+     * `String`
+     */
+    enums?: Function;
+    /**
+     * `Array` or `String`
+     */
+    bytes?: Function;
+    /**
+     * `true` or `false`
+     */
+    defaults?: boolean;
+    /**
+     * `true` or `false`
+     */
+    arrays?: boolean;
+    /**
+     * `true` or `false`
+     */
+    objects?: boolean;
+    /**
+     * `true` or `false`
+     */
+    oneofs?: boolean;
+    /**
+     * `true` or `false`
+     */
+    json?: boolean;
+    /**
+     * A list of search paths for imported .proto files.
+     */
+    includeDirs?: [string];
 };

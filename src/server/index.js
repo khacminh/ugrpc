@@ -28,6 +28,21 @@ class GrpcServer {
    */
 
   /**
+   * proto-loader options. Read more at: https://www.npmjs.com/package/@grpc/proto-loader
+   * @typedef {Object} protoLoaderOptions
+   * @property {Boolean} [params.protoLoaderOptions.keepCase=false] - `true` or `false`
+   * @property {Function} [params.protoLoaderOptions.longs=String] `String` or `Number`
+   * @property {Function} [params.protoLoaderOptions.enums=String] `String`
+   * @property {Function} [params.protoLoaderOptions.bytes=Buffer] `Array` or `String`
+   * @property {Boolean} [params.protoLoaderOptions.defaults=false] `true` or `false`
+   * @property {Boolean} [params.protoLoaderOptions.arrays=true] `true` or `false`
+   * @property {Boolean} [params.protoLoaderOptions.objects=false] `true` or `false`
+   * @property {Boolean} [params.protoLoaderOptions.oneofs=true] `true` or `false`
+   * @property {Boolean} [params.protoLoaderOptions.json=false] `true` or `false`
+   * @property {[String]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
+   */
+
+  /**
    *Creates an instance of GrpcServer.
    * @param {Object} params
    * @param {string} params.name gRPC server name.
@@ -35,14 +50,16 @@ class GrpcServer {
    * @param {ProtoConfig} params.proto proto loader configurations
    * @param {Object} params.controllers gRPC service implementations
    * @param {Object} params.healthcheckStatus service health check status. Leave it undefined for always SERVING
+   * @param {protoLoaderOptions} params.protoLoaderOptions protoLoader Options.
+   * Read more at: https://www.npmjs.com/package/@grpc/proto-loader
    * @memberof GrpcServer
    */
   constructor(params) {
     const { name, host, proto, controllers, healthcheckStatus } = params;
     const { packageName, serviceName, protoPath } = proto;
+    const { protoLoaderOptions = {} } = params;
     this.#name = name || '';
     this.#host = host || '0.0.0.0:3000';
-
     const packageDefinition = protoLoader.loadSync(
       protoPath,
       {
@@ -51,6 +68,8 @@ class GrpcServer {
         enums: String,
         defaults: false,
         oneofs: true,
+        arrays: true,
+        ...protoLoaderOptions,
       },
     );
 

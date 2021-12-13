@@ -3,11 +3,26 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
 /**
- * proto loader configurations
+ * proto-loader configurations
  * @typedef {Object} ProtoConfig
  * @property {string} params.proto.packageName package name
  * @property {string} params.proto.serviceName service name
  * @property {string} params.proto.protoPath *.proto absolute file path
+ */
+
+/**
+ * proto-loader options. Read more at: https://www.npmjs.com/package/@grpc/proto-loader
+ * @typedef {Object} protoLoaderOptions
+ * @property {Boolean} [params.protoLoaderOptions.keepCase=false] - `true` or `false`
+ * @property {Function} [params.protoLoaderOptions.longs=String] `String` or `Number`
+ * @property {Function} [params.protoLoaderOptions.enums=String] `String`
+ * @property {Function} [params.protoLoaderOptions.bytes=Buffer] `Array` or `String`
+ * @property {Boolean} [params.protoLoaderOptions.defaults=false] `true` or `false`
+ * @property {Boolean} [params.protoLoaderOptions.arrays=true] `true` or `false`
+ * @property {Boolean} [params.protoLoaderOptions.objects=false] `true` or `false`
+ * @property {Boolean} [params.protoLoaderOptions.oneofs=true] `true` or `false`
+ * @property {Boolean} [params.protoLoaderOptions.json=false] `true` or `false`
+ * @property {[String]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
  */
 
 /**
@@ -17,10 +32,12 @@ const protoLoader = require('@grpc/proto-loader');
  * @param {!string} params.host gRPC server address. REQUIRED
  * @param {!Boolean} params.isSecureChannel should create the secure channel. Default: false
  * @param {!ProtoConfig} params.proto proto loader configurations
+ * @param {!protoLoaderOptions} params.protoLoaderOptions proto loader configurations
  * @returns {grpc.Client} gRPC Client
  */
 function createGrpcClient(params) {
   const { host, proto = {}, isSecureChannel } = params;
+  const { protoLoaderOptions = {} } = params;
   const { packageName, serviceName, protoPath } = proto;
 
   if (!host) {
@@ -34,6 +51,7 @@ function createGrpcClient(params) {
       enums: String,
       defaults: false,
       oneofs: true,
+      ...protoLoaderOptions,
     },
   );
 
