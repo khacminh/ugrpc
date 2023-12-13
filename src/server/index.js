@@ -19,11 +19,11 @@ const serverOptions = {
   // 'grpc.http2.min_ping_interval_without_data_ms': 5000,
 };
 class GrpcServer {
-  #name
+  #name;
 
-  #host
+  #host;
 
-  #healthcheck
+  #healthcheck;
 
   /**
    * proto loader configurations
@@ -45,7 +45,7 @@ class GrpcServer {
    * @property {Boolean} [params.protoLoaderOptions.objects=false] `true` or `false`
    * @property {Boolean} [params.protoLoaderOptions.oneofs=true] `true` or `false`
    * @property {Boolean} [params.protoLoaderOptions.json=false] `true` or `false`
-   * @property {[String]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
+   * @property {String[]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
    */
 
   /**

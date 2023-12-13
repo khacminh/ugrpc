@@ -19,7 +19,7 @@ declare class GrpcServer {
      * @property {Boolean} [params.protoLoaderOptions.objects=false] `true` or `false`
      * @property {Boolean} [params.protoLoaderOptions.oneofs=true] `true` or `false`
      * @property {Boolean} [params.protoLoaderOptions.json=false] `true` or `false`
-     * @property {[String]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
+     * @property {String[]} [params.protoLoaderOptions.includeDirs=[]] A list of search paths for imported .proto files.
      */
     /**
      *Creates an instance of GrpcServer.
@@ -92,7 +92,7 @@ declare class GrpcServer {
             /**
              * A list of search paths for imported .proto files.
              */
-            includeDirs?: [string];
+            includeDirs?: string[];
         };
     });
     server: grpc.Server;

@@ -7,11 +7,11 @@ const { servingStatus, Implementation, service } = require('grpc-js-health-check
  * @class Healthcheck
  */
 class Healthcheck {
-  #status
+  #status;
 
-  #statusMap
+  #statusMap;
 
-  #serviceName
+  #serviceName;
 
   /**
    *Creates an instance of gRPC Healthcheck
